@@ -21,10 +21,9 @@ class TimeControllerTest {
 
     @Test
     void timeEndpointReturnsString() throws Exception {
-        MvcResult result = mockMvc.perform(get("/"))
+        mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andReturn();
-        String content = result.getResponse().getContentAsString();
-        assertThat(content).contains("Current date and time in Rotterdam");
+                .andExpect(result -> assertThat(result.getResponse().getContentAsString())
+                        .contains("Current date and time in Rotterdam"));
     }
 }
