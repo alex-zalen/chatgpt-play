@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotterdam Clock</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div id="clock" class="glow">--:--:--</div>
+        <div id="date" class="glow">-- --- ----</div>
+    </div>
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const options = { timeZone: 'Europe/Amsterdam', hour12: false };
+            const timeFormatter = new Intl.DateTimeFormat('en-GB', {
+                ...options,
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+            const dateFormatter = new Intl.DateTimeFormat('en-GB', {
+                timeZone: 'Europe/Amsterdam',
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            });
+            document.getElementById('clock').textContent = timeFormatter.format(now);
+            document.getElementById('date').textContent = dateFormatter.format(now);
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>
